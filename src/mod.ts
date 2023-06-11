@@ -35,20 +35,22 @@ class TwoSlotExtendedMags implements IPostDBLoadMod {
   }
 
   private updateInventorySlotSize(itemProp: Props): void {
-    itemProp.Height = config.newMagazineInventorySlotSize;
+    itemProp.Height = 2;
     // itemProp.ExtraSizeDown = config.newMagazineInventorySlotSize--;
   }
 
   private isExtendedMag(item: ITemplateItem): boolean {
     const magazineCategoryId = "5448bc234bdc2d3c308b4569";
     
-    return item._parent == magazineCategoryId && this.isMagazineSizeWithinCapacity(item._props);
+    return item._parent == magazineCategoryId &&
+      item._props.Width == 1 && // We don't want to make horizontal mags like P90's to be 4 squares wide or change drum mags (for now)
+      this.isWithinMagazineSizeCapacity(item._props);
   }
 
-  private isMagazineSizeWithinCapacity(itemProp: Props): boolean {
+  private isWithinMagazineSizeCapacity(itemProp: Props): boolean {
     const capacity = this.getMagazineCapacity(itemProp);
 
-    return capacity >= config.minMagazineSizeToBeIncluded && capacity <= config.maxMagazineSizeToBeIncluded;
+    return capacity >= config.minMagazineCapacityToBeIncluded && capacity <= config.maxMagazineCapacityToBeIncluded;
   }
 
   private getMagazineCapacity(itemProp: Props): number {

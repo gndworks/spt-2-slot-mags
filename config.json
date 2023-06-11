@@ -1,5 +1,4 @@
 {
-  "minMagazineSizeToBeIncluded": 30,
-  "maxMagazineSizeToBeIncluded": 60,
-  "newMagazineInventorySlotSize": 2
+  "minMagazineCapacityToBeIncluded": 40,
+  "maxMagazineCapacityToBeIncluded": 50
 }
