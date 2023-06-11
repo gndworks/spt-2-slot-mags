@@ -1,0 +1,61 @@
+
+
+import { DependencyContainer } from "tsyringe";
+
+import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
+import { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
+import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
+
+import config from "../config.json";
+import { ITemplateItem, Props } from "@spt-aki/models/eft/common/tables/ITemplateItem";
+
+class TwoSlotExtendedMags implements IPostDBLoadMod {
+  private logger: ILogger;
+
+  public postDBLoad(container: DependencyContainer): void {
+    this.logger = container.resolve<ILogger>("WinstonLogger");
+
+    const databaseServer = container.resolve<DatabaseServer>("DatabaseServer");
+    const tables = databaseServer.getTables();
+    const itemTable = tables.templates.items;
+
+    this.updateExtendedMagsInventorySlotSize(itemTable);
+
+    this.logger.success(`Downsized!`);
+  }
+
+  private updateExtendedMagsInventorySlotSize(itemTable: Record<string, ITemplateItem>): void {
+    for (const itemId in itemTable) {
+      const item = itemTable[itemId];
+
+      if (this.isExtendedMag(item)) {
+        this.updateInventorySlotSize(item._props);
+      }
+    }
+  }
+
+  private updateInventorySlotSize(itemProp: Props): void {
+    itemProp.Height = config.newMagazineInventorySlotSize;
+    // itemProp.ExtraSizeDown = config.newMagazineInventorySlotSize--;
+  }
+
+  private isExtendedMag(item: ITemplateItem): boolean {
+    const magazineCategoryId = "5448bc234bdc2d3c308b4569";
+    
+    return item._parent == magazineCategoryId && this.isMagazineSizeWithinCapacity(item._props);
+  }
+
+  private isMagazineSizeWithinCapacity(itemProp: Props): boolean {
+    const capacity = this.getMagazineCapacity(itemProp);
+
+    return capacity >= config.minMagazineSizeToBeIncluded && capacity <= config.maxMagazineSizeToBeIncluded;
+  }
+
+  private getMagazineCapacity(itemProp: Props): number {
+    return itemProp.Cartridges?.find(cartridge => cartridge._max_count != null)?._max_count;
+  }
+
+  
+}
+
+module.exports = { mod: new TwoSlotExtendedMags() };
