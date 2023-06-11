@@ -5,9 +5,9 @@ import { DependencyContainer } from "tsyringe";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
+import { ITemplateItem, Props } from "@spt-aki/models/eft/common/tables/ITemplateItem";
 
 import config from "../config.json";
-import { ITemplateItem, Props } from "@spt-aki/models/eft/common/tables/ITemplateItem";
 
 class TwoSlotExtendedMags implements IPostDBLoadMod {
   private logger: ILogger;
@@ -29,14 +29,15 @@ class TwoSlotExtendedMags implements IPostDBLoadMod {
       const item = itemTable[itemId];
 
       if (this.isExtendedMag(item)) {
-        this.updateInventorySlotSize(item._props);
+        const itemProp = item._props;
+
+        itemProp.Height = 2;
+
+        if (itemProp.ExtraSizeDown) {
+          itemProp.ExtraSizeDown--;
+        }
       }
     }
-  }
-
-  private updateInventorySlotSize(itemProp: Props): void {
-    itemProp.Height = 2;
-    // itemProp.ExtraSizeDown = config.newMagazineInventorySlotSize--;
   }
 
   private isExtendedMag(item: ITemplateItem): boolean {
