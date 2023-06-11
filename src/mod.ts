@@ -1,4 +1,19 @@
-
+// Copyright (C) 2023 Platinum
+// 
+// This file is part of Two Slot Extended Mags.
+// 
+// Two Slot Extended Mags is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// Two Slot Extended Mags is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with Two Slot Extended Mags.  If not, see <http://www.gnu.org/licenses/>.
 
 import { DependencyContainer } from "tsyringe";
 
@@ -12,6 +27,8 @@ import config from "../config.json";
 class TwoSlotExtendedMags implements IPostDBLoadMod {
   private logger: ILogger;
 
+  readonly modName = "Two Slot Extended Mags";
+
   public postDBLoad(container: DependencyContainer): void {
     this.logger = container.resolve<ILogger>("WinstonLogger");
 
@@ -20,11 +37,11 @@ class TwoSlotExtendedMags implements IPostDBLoadMod {
     const itemTable = tables.templates.items;
 
     this.updateExtendedMagsInventorySlotSize(itemTable);
-
-    this.logger.success(`Downsized!`);
   }
 
   private updateExtendedMagsInventorySlotSize(itemTable: Record<string, ITemplateItem>): void {
+    let itemsChanged = 0;
+
     for (const itemId in itemTable) {
       const item = itemTable[itemId];
 
@@ -36,8 +53,13 @@ class TwoSlotExtendedMags implements IPostDBLoadMod {
         if (itemProp.ExtraSizeDown) {
           itemProp.ExtraSizeDown--;
         }
+
+        itemsChanged++;
       }
     }
+
+    this.logger.success(`[${this.modName}]: Updated ${itemsChanged} extended mags.`);
+    this.logger.success(`[${this.modName}]: Please delete the "AppData\\Local\\Temp\\Battlestate Games\\EscapeFromTarkov\\Icon Cache" folder if you have issues with the icon size.`);
   }
 
   private isExtendedMag(item: ITemplateItem): boolean {
@@ -57,8 +79,6 @@ class TwoSlotExtendedMags implements IPostDBLoadMod {
   private getMagazineCapacity(itemProp: Props): number {
     return itemProp.Cartridges?.find(cartridge => cartridge._max_count != null)?._max_count;
   }
-
-  
 }
 
 module.exports = { mod: new TwoSlotExtendedMags() };
