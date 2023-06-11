@@ -1,4 +1,4 @@
 {
-  "minMagazineCapacityToBeIncluded": 40,
+  "minMagazineCapacityToBeIncluded": 10,
   "maxMagazineCapacityToBeIncluded": 50
 }

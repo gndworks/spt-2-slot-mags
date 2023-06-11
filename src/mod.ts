@@ -67,6 +67,7 @@ class TwoSlotExtendedMags implements IPostDBLoadMod {
     
     return item._parent == magazineCategoryId &&
       item._props.Width == 1 && // We don't want to make horizontal mags like P90's to be 4 squares wide or change drum mags (for now)
+      item._props.Height > 2 &&
       this.isWithinMagazineSizeCapacity(item._props);
   }
 
