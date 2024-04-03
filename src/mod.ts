@@ -59,7 +59,7 @@ class TwoSlotExtendedMags implements IPostDBLoadMod {
     }
 
     this.logger.success(`[${this.modName}]: Updated ${itemsChanged} extended mags.`);
-    this.logger.success(`[${this.modName}]: Please delete the "AppData\\Local\\Temp\\Battlestate Games\\EscapeFromTarkov\\Icon Cache" folder if you have issues with the icon size.`);
+    this.logger.success(`[${this.modName}]: If you have issues with the icon size, please go to SPT Launcher > Settings > Clean Temp Files.`);
   }
 
   private isExtendedMag(item: ITemplateItem): boolean {
