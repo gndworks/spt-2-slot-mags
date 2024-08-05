@@ -1,9 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -17,10 +15,7 @@
     "@typescript-eslint/comma-dangle": 1,
     "@typescript-eslint/func-call-spacing": 2,
     "@typescript-eslint/quotes": 1,
-    "@typescript-eslint/brace-style": [
-      "warn",
-      "1tbs"
-    ],
+    "@typescript-eslint/brace-style": ["warn", "1tbs"],
     "@typescript-eslint/naming-convention": [
       "warn",
       {
@@ -47,13 +42,10 @@
         "format": ["UPPER_CASE"]
       }
     ],
-    "@typescript-eslint/indent": [
-      "warn",
-      2
-    ],
+    "@typescript-eslint/indent": ["warn", 2],
     "@typescript-eslint/no-unused-expressions": [
       "warn",
-      { 
+      {
         "allowShortCircuit": false,
         "allowTernary": false
       }
@@ -71,5 +63,13 @@
         "allowArgumentsExplicitlyTypedAsAny": true
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.mjs", "*.ts"],
+      "env": {
+        "node": true
+      }
+    }
+  ]
 }
