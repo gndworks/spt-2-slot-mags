@@ -17,10 +17,10 @@
 
 import { DependencyContainer } from "tsyringe";
 
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ITemplateItem, Props } from "@spt-aki/models/eft/common/tables/ITemplateItem";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { IPostDBLoadMod } from "@spt/models/external/IPostDBLoadMod";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ITemplateItem, Props } from "@spt/models/eft/common/tables/ITemplateItem";
 
 import config from "../config.json";
 
