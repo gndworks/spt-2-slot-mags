@@ -1,10 +1,10 @@
 {
     "name": "Two Slot Extended Mags",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "main": "src/mod.js",
     "license": "GPLv3",
     "author": "Platinum",
-    "akiVersion": "3.8.*",
+    "sptVersion": "3.9.*",
     "scripts": {
         "setup": "npm i",
         "build": "node ./packageBuild.ts"
