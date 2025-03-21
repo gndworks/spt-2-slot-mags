@@ -1,4 +1,4 @@
-// Copyright (C) 2023 Platinum
+// Copyright (C) 2025 Platinum
 // 
 // This file is part of Two Slot Extended Mags.
 // 
@@ -13,14 +13,14 @@
 // GNU General Public License for more details.
 // 
 // You should have received a copy of the GNU General Public License
-// along with Two Slot Extended Mags.  If not, see <http://www.gnu.org/licenses/>.
+// along with Two Slot Extended Mags.  If not, see <https://www.gnu.org/licenses/>.
 
 import { DependencyContainer } from "tsyringe";
 
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { IPostDBLoadMod } from "@spt/models/external/IPostDBLoadMod";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { ITemplateItem, Props } from "@spt/models/eft/common/tables/ITemplateItem";
+import { ITemplateItem, IProps } from "@spt/models/eft/common/tables/ITemplateItem";
 
 import config from "../config.json";
 
@@ -71,13 +71,13 @@ class TwoSlotExtendedMags implements IPostDBLoadMod {
       this.isWithinMagazineSizeCapacity(item._props);
   }
 
-  private isWithinMagazineSizeCapacity(itemProp: Props): boolean {
+  private isWithinMagazineSizeCapacity(itemProp: IProps): boolean {
     const capacity = this.getMagazineCapacity(itemProp);
 
     return capacity >= config.minMagazineCapacityToBeIncluded && capacity <= config.maxMagazineCapacityToBeIncluded;
   }
 
-  private getMagazineCapacity(itemProp: Props): number {
+  private getMagazineCapacity(itemProp: IProps): number {
     return itemProp.Cartridges?.find(cartridge => cartridge._max_count != null)?._max_count;
   }
 }
