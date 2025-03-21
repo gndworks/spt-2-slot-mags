@@ -1,4 +1,4 @@
-// Copyright (C) 2023 Platinum
+// Copyright (C) 2025 Platinum
 // 
 // This file is part of Two Slot Extended Mags.
 // 
@@ -13,7 +13,7 @@
 // GNU General Public License for more details.
 // 
 // You should have received a copy of the GNU General Public License
-// along with Two Slot Extended Mags.  If not, see <http://www.gnu.org/licenses/>.
+// along with Two Slot Extended Mags.  If not, see <https://www.gnu.org/licenses/>.
 
 import { DependencyContainer } from "tsyringe";
 
